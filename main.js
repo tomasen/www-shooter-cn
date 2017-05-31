@@ -1,3 +1,4 @@
+/*
 var fileInputTextDiv = document.getElementById('file_input_text_div');
 var fileInput = document.getElementById('file_input_file');
 var fileInputText = document.getElementById('file_input_text');
@@ -27,3 +28,4 @@ function changeState() {
     }
   }
 }
+*/
