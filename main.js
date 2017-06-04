@@ -28,7 +28,18 @@ var app = new Vue({
       app.$data.inputFileText = str.slice(i, str.length);
     },
     submitfile: function (e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
 
+      var data = new FormData()
+      data.append('file', files[0])
+      data.append('orgname', app.$data.inputFileText)
+
+      fetch('//www.shooter.cn/sub/upload.php', {
+        method: 'POST',
+        body: data
+      })
     }
   }
 });;
