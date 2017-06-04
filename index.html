@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="深度学习和自然语言处理">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>射手网·续</title>
+    <title>射手网</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -16,7 +16,7 @@
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="射手网·续">
+    <meta name="apple-mobile-web-app-title" content="射手网">
     <!--
       <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
     -->
@@ -36,10 +36,11 @@
 
     <!--
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+      <link rel="stylesheet" href="material.red-pink.min.css">
     -->
 
-    <link rel="stylesheet" href="icon.css">
-    <link rel="stylesheet" href="material.red-pink.min.css">
+    <link rel="stylesheet" href="//www.splayer.org/material.icon.css">
+    <link rel="stylesheet" href="//www.splayer.org/material.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
     #float-over-bottom {
@@ -64,6 +65,7 @@
     </script>
   </head>
   <body>
+    <div id="app">
     <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
       <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
         <div class="mdl-layout__header-row">
@@ -88,8 +90,69 @@
           <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
           <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
             <div class="demo-crumbs mdl-color-text--grey-500">
-              射手网 &gt; 断·舍·离 &gt; 续
+              <span v-if="router === 'upload'"><span v-on:click="goto('')">射手网</span> &gt; 上传</span>
+              <span v-else-if="router === 'uploadsucessed'"><span v-on:click="goto('')">射手网</span> &gt; 上传成功</span>
+              <span v-else>射手网 &gt; 断·舍·离 &gt; 续</span>
             </div>
+            <div v-if="router.startsWith('upload')">
+              <div v-if="router === 'uploadsucessed'">
+                <div class="mdl-grid">
+                  <div class="mdl-layout-spacer"></div>
+                  <div class="mdl-cell mdl-cell--6-col">
+                    <dialog class="mdl-dialog">
+                      <h4 class="mdl-dialog__title">上传成功</h4>
+                      <div class="mdl-dialog__content">
+                        <p>
+                          您还可以继续上传更多字幕文件，帮助训练射手网的语言深度学习。
+                        </p>
+                      </div>
+                    </dialog>
+                    </div>
+                    <div class="mdl-layout-spacer"></div>
+                  </div>
+              </div>
+              <div >
+                <!-- <form enctype="multipart/form-data" method="POST" ACTION="/sub/uphandle.php"> -->
+                  <div class="mdl-grid">
+                    <div class="mdl-layout-spacer"></div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="orgname" name="orgname">
+                        <label class="mdl-textfield__label" for="orgname">片名<label>
+                      </div>
+                    </div>
+                    <div class="mdl-layout-spacer"></div>
+                  </div>
+
+                  <div class="mdl-grid">
+                    <div class="mdl-layout-spacer"></div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                      <label class="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                        <i class="material-icons">file_upload</i>
+                        <input class="none" @change="onFileChange" type="file" name="subfile"/>
+                      </label>
+
+                      <div id="file_input_text_div" class="mdl-textfield mdl-js-textfield textfield-demo"  v-bind:class="{ 'is-focused': inputFileText.length > 0 }">
+                        <input class="file_input_text mdl-textfield__input" type="text"
+                          disabled readonly v-bind:value="inputFileText" v-bind:placeholder="placeholder"/>
+                        <label class="mdl-textfield__label" for="file_input_text"></label>
+                      </div>
+                    </div>
+                    <div class="mdl-layout-spacer"></div>
+                  </div>
+
+                  <div class="mdl-grid">
+                      <div class="mdl-layout-spacer"></div>
+                      <div class="mdl-cell mdl-cell--4-col">
+                        <button class="mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="button" name="submit"
+                           @click="submitfile" v-bind:disabled="inputFileText.length <= 0" >提交训练资料</button>
+                      </div>
+                      <div class="mdl-layout-spacer"></div>
+                  </div>
+
+              </div>
+            </div>
+            <div v-else>
             <h3>顾往</h3>
               <p>
                 不知不觉，从射手网宣布关闭至今，已近3年。
@@ -113,7 +176,7 @@
                 曾经被认为不可能的事，又有了机会。在视觉识别和自然语言处理上，深度学习可能带来翻天覆地的进展。
               </p>
               <p>
-                射手网虽然关闭了，但是<a href="https://splayer.org">射手影音</a>仍然还在。而且直到今天我还经常能收到用户的意见和建议。
+                射手网虽然关闭了，但是<a href="//www.splayer.org">射手影音</a>仍然还在。而且直到今天我还经常能收到用户的意见和建议。
               </p>
               <p>
                 一直很惭愧，没能为用户做的更多。
@@ -127,10 +190,10 @@
                 射手网不会再提供字幕的检索和下载。
               </p>
               <p>
-                不过，射手网会把库存的字幕文件和电影、电视剧的采样数据整理成<a href="#uploadtraindata">训练资料</a>，用在深度学习的研究中。
+                不过，射手网正在将库存的字幕文件和电影、电视剧的采样数据整理成<a href="#upload" v-on:click="goto('upload')">训练资料</a>，用在深度学习的研究中。
               </p>
               <p>
-                我们将提供接口，为您合法拥有的视频提供智能翻译的结果。同时也将开放字幕文件（训练资料）的提交入口。
+                我们会提供接口，为您合法拥有的视频提供智能翻译的结果。同时也将开放字幕文件（训练资料）的提交入口。
               </p>
               <p>
                 当然，射手网<a href="https://docs.google.com/document/d/1hv1v9Xnit93YczHKeCRwvZ2EEGau1GL4QDj49e2qXt0/preview">需要人手</a>，协助整理和积累训练资料。研究改进我们的接口、功能和学习算法。
@@ -143,26 +206,7 @@
               <p>
                 2017年 初夏 · 沈晟
               </p>
-
-              <div class="file_input_div" id="uploadtraindata">
-                <form>
-                <div class="file_input">
-                  <label class="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
-                    <i class="material-icons">file_upload</i>
-                    <input id="file_input_file" class="none" type="file" />
-                  </label>
-                </div>
-                <div id="file_input_text_div" class="mdl-textfield mdl-js-textfield textfield-demo">
-                  <input class="file_input_text mdl-textfield__input" type="text" disabled readonly id="file_input_text" value=".zip, .rar, .srt, .ssa, .ass"/>
-                  <label class="mdl-textfield__label" for="file_input_text"></label>
-                </div>
-
-                <div class="file_submit">
-                  <button class="mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit" name="submit" disabled>提交训练资料</button>
-                </div>
-
-                </form>
-              </div>
+            </div>
 
           </div>
         </div>
@@ -182,15 +226,16 @@
       </main>
     </div>
     <div id="float-over-bottom">
-      <a href="https://splayer.org" target="_blank" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">射手影音</a>
+      <a href="//www.splayer.org" target="_blank" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">射手影音</a>
       <!--
         <a href="#sub/upload.html" target="_blank" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">提交训练资料</a>
 
         <a href="https://docs.google.com/document/d/1hv1v9Xnit93YczHKeCRwvZ2EEGau1GL4QDj49e2qXt0/preview" target="_blank" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">工作机会</a>
       -->
     </div>
-    <script src="material.min.js"></script>
-    <script src="https://www.splayer.org/vue.min.js"></script>
+  </div>
+    <script src="//www.splayer.org/material.min.js"></script>
+    <script src="//www.splayer.org/vue.min.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
