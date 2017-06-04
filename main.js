@@ -4,7 +4,9 @@ var app = new Vue({
     router: window.location.hash.substring(1),
     cn: true,
     inputFileText: "",
-    placeholder: ".zip, .rar, .srt, .ssa, .ass"
+    placeholder: ".zip, .rar, .srt, .ssa, .ass",
+    files: null,
+    orgname: null
   },
   methods: {
     goto: function (tag) {
@@ -15,6 +17,7 @@ var app = new Vue({
     },
     onFileChange: function (e) {
       var files = e.target.files || e.dataTransfer.files;
+      app.$data.files = files;
       if (!files.length)
         return;
 
@@ -28,18 +31,21 @@ var app = new Vue({
       app.$data.inputFileText = str.slice(i, str.length);
     },
     submitfile: function (e) {
-      var files = e.target.files || e.dataTransfer.files;
+      var files = app.$data.files;
       if (!files.length)
         return;
 
       var data = new FormData()
       data.append('file', files[0])
-      data.append('orgname', app.$data.inputFileText)
+      data.append('orgname', app.$data.orgname)
 
-      fetch('//www.shooter.cn/sub/upload.php', {
-        method: 'POST',
-        body: data
-      })
+      fetch('//www.shooter.cn/sub/uphandle.php', {
+          method: 'POST',
+          body: data
+        })
+        .then(res => console.log(res.body))
+        .then(() => console.log("consumed the entire body without keeping the whole thing in memory!"))
+        .catch((e) => console.error("something went wrong", e))
     }
   }
 });;

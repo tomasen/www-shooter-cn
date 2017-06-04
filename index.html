@@ -103,7 +103,7 @@
                       <h4 class="mdl-dialog__title">上传成功</h4>
                       <div class="mdl-dialog__content">
                         <p>
-                          您还可以继续上传更多字幕文件，帮助训练射手网的语言深度学习。
+                          您还可以继续<a href="#upload" v-on:click="goto('upload')">上传更多训练文件</a>，帮助训练射手网的语言深度学习。
                         </p>
                       </div>
                     </dialog>
@@ -113,17 +113,26 @@
               </div>
               <div >
                 <!-- <form enctype="multipart/form-data" method="POST" ACTION="/sub/uphandle.php"> -->
-                  <div class="mdl-grid">
-                    <div class="mdl-layout-spacer"></div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                      <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="orgname" name="orgname">
-                        <label class="mdl-textfield__label" for="orgname">片名<label>
-                      </div>
+
+                <div class="mdl-grid">
+                  <div class="mdl-layout-spacer"></div>
+                  <div class="mdl-cell mdl-cell--6-col">
+                        <p>
+                          帮助训练射手网的语言深度学习机，可以通过email提交训练用的文件，标题写对应片名或视频名即可。
+                        </p>
                     </div>
                     <div class="mdl-layout-spacer"></div>
                   </div>
 
+                  <div class="mdl-grid">
+                      <div class="mdl-layout-spacer"></div>
+                      <div class="mdl-cell mdl-cell--4-col">
+                        <a class="mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="button" name="submit"
+                           href="mailto:trainin.4il5akl0rrr1efoq@u.box.com">提交训练资料</a>
+                      </div>
+                      <div class="mdl-layout-spacer"></div>
+                  </div>
+                  <!--
                   <div class="mdl-grid">
                     <div class="mdl-layout-spacer"></div>
                     <div class="mdl-cell mdl-cell--6-col">
@@ -142,6 +151,17 @@
                   </div>
 
                   <div class="mdl-grid">
+                    <div class="mdl-layout-spacer"></div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" v-model="orgname" name="orgname">
+                        <label class="mdl-textfield__label" for="orgname">片名<label>
+                      </div>
+                    </div>
+                    <div class="mdl-layout-spacer"></div>
+                  </div>
+
+                  <div class="mdl-grid">
                       <div class="mdl-layout-spacer"></div>
                       <div class="mdl-cell mdl-cell--4-col">
                         <button class="mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="button" name="submit"
@@ -149,7 +169,7 @@
                       </div>
                       <div class="mdl-layout-spacer"></div>
                   </div>
-
+-->
               </div>
             </div>
             <div v-else>
